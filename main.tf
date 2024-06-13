@@ -13,21 +13,34 @@ terraform {
   }
 }
 
-module "route_53_zone" {
-  source = "./modules/route53"
-  zones  = var.zones
-  create = var.create
-  tags   = var.tags
+#module "route_53_zone" {
+#  source = "./modules/route53"
+#  zones  = var.zones
+#  create = var.create
+#  tags   = var.tags
+#}
+
+#module "cloudflare_delegation" {
+#  source                   = "./modules/cloudflare"
+#  account_id               = ""
+#  domain_name              = element([for k, v in var.zones : lookup(v, "domain_name", k)], 0) # assuming single domain
+#  aws_route53_name_servers = module.route_53_zone.route53_zone_name_servers
+#  providers = {
+#    cloudflare = cloudflare
+#  }
+#  cloudflare_delegation = var.cloudflare_delegation 
+#}
+
+resource "cloudflare_zone" "this" {
+  account_id = var.account_id
+  zone       = var.domain_name
 }
 
-module "cloudflare_delegation" {
-  source                   = "./modules/cloudflare"
-  account_id               = ""
-  domain_name              = element([for k, v in var.zones : lookup(v, "domain_name", k)], 0) # assuming single domain
-  aws_route53_name_servers = module.route_53_zone.route53_zone_name_servers
-  providers = {
-    cloudflare = cloudflare
-  }
-  cloudflare_delegation = var.cloudflare_delegation 
+resource "cloudflare_record" "ns" {
+  count   = length(var.aws_route53_name_servers)
+  zone_id = cloudflare_zone.this.id
+  name    = var.domain_name
+  type    = "NS"
+  value   = element(var.aws_route53_name_servers, count.index)
+  ttl     = 3600
 }
-
