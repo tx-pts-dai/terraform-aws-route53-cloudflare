@@ -31,15 +31,3 @@ module "cloudflare_delegation" {
   cloudflare_delegation = var.cloudflare_delegation 
 }
 
-data "aws_secretsmanager_secret" "cloudflare_api_token" {
-  name = "cloudflare/apitoken"
-}
-
-data "aws_secretsmanager_secret_version" "cloudflare_api_token" {
-  secret_id = data.aws_secretsmanager_secret.cloudflare_api_token.id
-}
-
-provider "cloudflare" {
-  alias     = "cloudflare"
-  api_token = data.aws_secretsmanager_secret_version.cloudflare_api_token.secret_string
-}
