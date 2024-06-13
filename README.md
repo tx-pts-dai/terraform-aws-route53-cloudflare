@@ -72,8 +72,8 @@ as described in the `.pre-commit-config.yaml` file
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.2 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.49 |
 
 ## Providers
 
@@ -81,7 +81,10 @@ No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cloudflare_delegation"></a> [cloudflare\_delegation](#module\_cloudflare\_delegation) | ./modules/cloudflare | n/a |
+| <a name="module_route_53_zone"></a> [route\_53\_zone](#module\_route\_53\_zone) | ./modules/route53 | n/a |
 
 ## Resources
 
@@ -89,7 +92,14 @@ No resources.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cloudflare_api_token"></a> [cloudflare\_api\_token](#input\_cloudflare\_api\_token) | Cloudflare API token | `string` | `""` | no |
+| <a name="input_cloudflare_delegation"></a> [cloudflare\_delegation](#input\_cloudflare\_delegation) | Whether to delegate DNS to Cloudflare | `bool` | `false` | no |
+| <a name="input_cloudflare_email"></a> [cloudflare\_email](#input\_cloudflare\_email) | Cloudflare account email | `string` | `""` | no |
+| <a name="input_create"></a> [create](#input\_create) | Whether to create Route53 zone | `bool` | `true` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags added to all zones. Will take precedence over tags from the 'zones' variable | `map(any)` | `{}` | no |
+| <a name="input_zones"></a> [zones](#input\_zones) | A map of route53 zones to create | <pre>map(object({<br>    comment = optional(string, "")<br>  }))</pre> | `{}` | no |
 
 ## Outputs
 

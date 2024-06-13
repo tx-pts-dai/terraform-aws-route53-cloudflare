@@ -4,18 +4,10 @@ variable "create" {
   default     = true
 }
 
-variable "cloudflare_delegation" {
-  description = "Whether to delegate DNS to Cloudflare"
-  type        = bool
-  default     = false
-}
-
 variable "zones" {
-  description = "A map of route53 zones to create"
-  type = map(object({
-    comment = optional(string, "")
-  }))
-  default = {}
+  description = "Map of Route53 zone parameters"
+  type        = any
+  default     = {}
 }
 
 variable "tags" {
