@@ -21,7 +21,6 @@ module "route_53_zone" {
 }
 
 module "cloudflare_delegation" {
-  count                    = var.cloudflare_delegation ? 1 : 0
   source                   = "./modules/cloudflare"
   account_id               = ""
   domain_name              = element([for k, v in var.zones : lookup(v, "domain_name", k)], 0) # assuming single domain
@@ -29,6 +28,7 @@ module "cloudflare_delegation" {
   providers = {
     cloudflare = cloudflare
   }
+  cloudflare_delegation = var.cloudflare_delegation 
 }
 
 data "aws_secretsmanager_secret" "cloudflare_api_token" {
