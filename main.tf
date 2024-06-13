@@ -23,7 +23,7 @@ module "cloudflare_delegation" {
   domain_name              = element([for k, v in var.zones : lookup(v, "domain_name", k)], 0) # assuming single domain
   aws_route53_name_servers = module.route_53_zone.route53_zone_name_servers
   providers = {
-    cloudflare = cloudflare.cloudflare
+    cloudflare = cloudflare
   }
 }
 
