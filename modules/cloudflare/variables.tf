@@ -12,3 +12,9 @@ variable "account_id" {
   description = "Cloudflare API token"
   type        = string
 }
+
+variable "cloudflare_delegation" {
+  description = "Whether to delegate DNS to Cloudflare"
+  type        = bool
+  default     = false
+}
