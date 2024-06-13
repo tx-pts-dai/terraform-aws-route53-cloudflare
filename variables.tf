@@ -1,14 +1,14 @@
-variable "create" {
-  description = "Whether to create Route53 zone"
-  type        = bool
-  default     = true
-}
+#variable "create" {
+#  description = "Whether to create Route53 zone"
+#  type        = bool
+#  default     = true
+#}
 
-variable "cloudflare_delegation" {
-  description = "Whether to delegate DNS to Cloudflare"
-  type        = bool
-  default     = false
-}
+#variable "cloudflare_delegation" {
+#  description = "Whether to delegate DNS to Cloudflare"
+#  type        = bool
+#  default     = false
+#}
 
 variable "zones" {
   description = "A map of route53 zones to create"
@@ -24,22 +24,22 @@ variable "tags" {
   default     = {}
 }
 
-variable "cf_domain_name" {
+variable "domain_name" {
   description = "The domain name to delegate in Cloudflare"
   type        = string
 }
 
-variable "cf_aws_route53_name_servers" {
+variable "aws_route53_name_servers" {
   description = "Route53 name servers"
   type        = list(string)
 }
 
-variable "cf_account_id" {
+variable "account_id" {
   description = "Cloudflare API token"
   type        = string
 }
 
-variable "cf_cloudflare_delegation" {
+variable "cloudflare_delegation" {
   description = "Whether to delegate DNS to Cloudflare"
   type        = bool
   default     = false
