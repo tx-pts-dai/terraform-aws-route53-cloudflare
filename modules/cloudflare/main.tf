@@ -13,18 +13,6 @@ terraform {
   }
 }
 
-data "aws_secretsmanager_secret" "cloudflare_api_token" {
-  name = "cloudflare/apitoken"
-}
-
-data "aws_secretsmanager_secret_version" "cloudflare_api_token" {
-  secret_id = data.aws_secretsmanager_secret.cloudflare_api_token.id
-}
-
-provider "cloudflare" {
-  api_token = data.aws_secretsmanager_secret_version.cloudflare_api_token.secret_string
-}
-
 resource "cloudflare_zone" "this" {
   account_id = var.account_id
   zone       = var.domain_name

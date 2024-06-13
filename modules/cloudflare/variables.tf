@@ -7,3 +7,8 @@ variable "aws_route53_name_servers" {
   description = "Route53 name servers"
   type        = list(string)
 }
+
+variable "account_id" {
+  description = "Cloudflare API token"
+  type        = string
+}
